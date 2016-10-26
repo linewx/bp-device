@@ -1,0 +1,9 @@
+{
+  "generator-react-webpack": {
+    "appName": "react-learning",
+    "style": "less",
+    "cssmodules": true,
+    "postcss": false,
+    "generatedWithVersion": 4
+  }
+}
