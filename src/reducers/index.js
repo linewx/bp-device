@@ -9,6 +9,16 @@
 /* Populated by react-webpack-redux:reducer */
 import { combineReducers } from 'redux';
 
-const reducers = {};
+const reducers = {
+  app(state = {message: 'this is the initial message'}, action) {
+    switch (action.type) {
+      case 'ADD_ITEM':
+        return { ...state, ...{message: 'wow, successfully!'}};
+      default:
+        return state;
+    }
+  }
+
+};
 const combined = combineReducers(reducers);
 module.exports = combined;

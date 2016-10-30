@@ -9,14 +9,15 @@ import React, {
   PropTypes
 } from 'react';
 import {} from '../actions/';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Main from '../components/App';
+// import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const { actions } = this.props;
-    return <Main actions={actions} />;
+    const { actions, message, dispatch } = this.props;
+    return (<div onClick={() => dispatch({type: 'ADD_ITEM', message: 'change message'})}>
+        {message}</div>);
   }
 }
 /* Populated by react-webpack-redux:reducer
@@ -25,11 +26,15 @@ class App extends Component {
  *       adjust it here.
  */
 App.propTypes = {
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object,
+  message: PropTypes.string,
+  dispatch: PropTypes.func
 };
 function mapStateToProps(state) { // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
-  const props = {};
+  const props = {
+    message: state.app.message
+  };
   return props;
 }
 function mapDispatchToProps(dispatch) {
@@ -38,4 +43,4 @@ function mapDispatchToProps(dispatch) {
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
