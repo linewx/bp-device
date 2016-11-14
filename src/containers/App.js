@@ -67,9 +67,17 @@ function mapDispatchToProps(dispatch) {
         pressure
       };
     },
-    submitPressure() {
-      return {
-        type: 'SUBMIT_PRESSURE'
+    submitPressure(lowPressure, highPressure) {
+      return dispatchFunc => {
+        api.post('/api/bp',
+          {
+            low: lowPressure,
+            high: highPressure
+          }
+        )
+          .then((response) => {
+            dispatchFunc(actions.receivePressureList(response.data));
+          });
       };
     },
     requestPressureList() {
@@ -96,4 +104,5 @@ function mapDispatchToProps(dispatch) {
   const actionMap = {actions: bindActionCreators(actions, dispatch)};
   return actionMap;
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);

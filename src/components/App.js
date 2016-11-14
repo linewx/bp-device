@@ -24,8 +24,8 @@ class AppComponent extends React.Component {
   }
 
   handleSubmit() {
-    const {actions} = this.props;
-    actions.submitPressure();
+    const {actions, highPressure, lowPressure} = this.props;
+    actions.submitPressure(lowPressure, highPressure);
   }
 
   render() {
