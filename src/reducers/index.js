@@ -11,7 +11,11 @@ import { combineReducers } from 'redux';
 
 const INITIAL_STATE = {
   lowPressure: 80,
-  highPressure: 120
+  highPressure: 120,
+  pressureList: [{
+    low: 70,
+    high: 130
+  }]
 };
 
 const reducers = {
@@ -23,6 +27,10 @@ const reducers = {
         return {...state, highPressure: action.pressure};
       case 'SUBMIT_PRESSURE':
         return {...state, highPressure: 0, lowPressure: 0};
+      case 'REQUEST_PRESSURE_LIST':
+        return {...state, isFetchingPressureList: true};
+      case 'RECEIVE_PRESSURE_LIST':
+        return {...state, pressureList: action.pressureList};
       default:
         return state;
     }

@@ -20,7 +20,21 @@ class WebpackDevConfig extends WebpackBaseConfig {
       plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
-      ]
+      ],
+      devServer: {
+        contentBase: './src/',
+        publicPath: '/assets/',
+        historyApiFallback: true,
+        hot: true,
+        inline: true,
+        port: 8000,
+        proxy: {
+          '/api': {
+            target: 'http://localhost:3000/',
+            secure: false
+          }
+        }
+      }
     };
   }
 }
