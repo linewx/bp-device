@@ -9,38 +9,53 @@ import React, {
   PropTypes
 } from 'react';
 import {} from '../actions/';
-// import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-// import Main from '../components/App';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const { actions, message, dispatch } = this.props;
-    return (<div onClick={() => dispatch({type: 'ADD_ITEM', message: 'change message'})}>
-        {message}</div>);
+    const {actions, highPressure, lowPressure} = this.props;
+    return (<Main actions={actions} highPressure={highPressure} lowPressure={lowPressure} />
+    );
   }
 }
-/* Populated by react-webpack-redux:reducer
- *
- * HINT: if you adjust the initial type of your reducer, you will also have to
- *       adjust it here.
- */
+
 App.propTypes = {
   actions: PropTypes.object,
-  message: PropTypes.string,
-  dispatch: PropTypes.func
+  highPressure: PropTypes.number,
+  lowPressure: PropTypes.number
 };
 function mapStateToProps(state) { // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
   const props = {
-    message: state.app.message
+    highPressure: state.app.highPressure,
+    lowPressure: state.app.lowPressure
   };
   return props;
 }
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
-  const actions = {};
-  const actionMap = { actions: bindActionCreators(actions, dispatch) };
+  const actions = {
+    changeLowPressure(pressure) {
+      return {
+        type: 'CHANGE_LOW_PRESSURE',
+        pressure
+      };
+    },
+    changeHighPressure(pressure) {
+      return {
+        type: 'CHANGE_HIGH_PRESSURE',
+        pressure
+      };
+    },
+    submitPressure() {
+      return {
+        type: 'SUBMIT_PRESSURE'
+      };
+    }
+  };
+  const actionMap = {actions: bindActionCreators(actions, dispatch)};
   return actionMap;
 }
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

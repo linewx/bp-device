@@ -9,16 +9,24 @@
 /* Populated by react-webpack-redux:reducer */
 import { combineReducers } from 'redux';
 
+const INITIAL_STATE = {
+  lowPressure: 80,
+  highPressure: 120
+};
+
 const reducers = {
-  app(state = {message: 'this is the initial message'}, action) {
+  app(state = INITIAL_STATE, action) {
     switch (action.type) {
-      case 'ADD_ITEM':
-        return { ...state, ...{message: 'wow, successfully!'}};
+      case 'CHANGE_LOW_PRESSURE':
+        return { ...state, lowPressure: action.pressure};
+      case 'CHANGE_HIGH_PRESSURE':
+        return {...state, highPressure: action.pressure};
+      case 'SUBMIT_PRESSURE':
+        return {...state, highPressure: 0, lowPressure: 0};
       default:
         return state;
     }
   }
-
 };
 const combined = combineReducers(reducers);
 module.exports = combined;
